@@ -1,41 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Practical Pal — Directory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #11192A;
+    --bg-raised: #1A2540;
+    --line: #34415F;
+    --ink: #FAFBFC;
+    --ink-dim: #AEB9CC;
+    --teal: #5EEAD4;
+    --amber: #FFB877;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(45,212,191,0.07), transparent 40%),
+      radial-gradient(circle at 85% 10%, rgba(242,166,90,0.05), transparent 35%),
+      var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    min-height:100vh;
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:48px 20px 80px;}
 
+  /* HEADER */
+  header{margin-bottom:36px;}
+  .term-bar{
+    display:flex;align-items:center;gap:8px;
+    font-family:var(--mono);font-size:12px;color:var(--ink-dim);
+    margin-bottom:18px;
+  }
+  .term-bar .dot{width:8px;height:8px;border-radius:50%;background:var(--line);}
+  .avatar-row{display:flex;align-items:center;gap:14px;}
+  .avatar{
+    width:54px;height:54px;border-radius:50%;
+    background:linear-gradient(135deg,var(--teal),#1a8f81);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--mono);font-weight:700;color:var(--bg);font-size:20px;
+    flex-shrink:0;
+  }
+  h1{font-size:1.5rem;margin:0 0 2px;letter-spacing:-0.01em;}
+  .handle{font-family:var(--mono);font-size:0.85rem;color:var(--teal);margin:0;}
+  .tagline{
+    margin-top:16px;color:var(--ink-dim);font-size:0.95rem;max-width:54ch;
+  }
+  .tagline strong{color:var(--ink);font-weight:600;}
 
+  /* STATUS STRIP — signature element: a "system status" readout */
+  .status{
+    margin-top:22px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--bg-raised);
+    font-family:var(--mono);
+    font-size:12px;
+    display:flex;
+    overflow:hidden;
+  }
+  .status div{
+    flex:1;padding:12px 14px;border-right:1px solid var(--line);
+  }
+  .status div:last-child{border-right:none;}
+  .status .k{color:var(--ink-dim);display:block;margin-bottom:4px;}
+  .status .v{color:var(--ink);font-weight:600;}
+  .status .v.on{color:var(--teal);}
 
- ~/thepracticalpal/links TP
-The Practical Pal
-@thepracticalpal · Bengaluru
-I debug code for a living, I debug my portfolio with the same discipline. Mutual funds, SIPs & long-term wealth — plus the health and life stuff that actually matters.
-role
-IT engineer, Bengaluru
-focus
-money · health · career
-style
-no hot tips, just systems
-All
-Start Here
-Money
-Health
-Career
-START HERE
-pinned
-The 1-page checklist for your first salary
-The thread I wish someone gave me on day one of earning.
-read the thread →
-	•	Build a 6-month emergency shield before anything else Term + health insurance, independent of your employer cover Automate SIPs the day salary lands Start boring: index fund or flexi cap, consistency over picking Reinvest a fixed % into skills — your real leverage
-MONEY
-thread
-My financial journey
-How a decade in IT shaped how I think about money — mistakes included.
-read the thread →
-MONEY
-essay
-The 7-year experiment: renting + SIPs vs. buying a flat
-Running the actual numbers instead of the usual rent-vs-buy debate.
-read the thread →
-CAREER
-coming soon
-More threads in progress
-Career capital, upskilling, and the IT-to-investor playbook — dropping soon.
-follow for updates →
-updated quarterly, like a good portfolio review
-follow @thepracticalpal →
+  /* FILTERS */
+  nav.filters{
+    display:flex;gap:8px;flex-wrap:wrap;
+    margin:34px 0 18px;
+  }
+  .chip{
+    font-family:var(--mono);
+    font-size:12.5px;
+    padding:7px 13px;
+    border-radius:20px;
+    border:1px solid var(--line);
+    background:transparent;
+    color:var(--ink-dim);
+    cursor:pointer;
+    transition:.15s ease;
+    user-select:none;
+  }
+  .chip:hover{border-color:var(--teal);color:var(--ink);}
+  .chip.active{
+    background:var(--teal);
+    border-color:var(--teal);
+    color:#0A2420;
+    font-weight:700;
+  }
+
+  /* LOG LIST — signature element: git-log styled entries */
+  .log{border-left:1px solid var(--line);margin-left:6px;}
+  .entry{
+    position:relative;
+    padding:0 0 26px 26px;
+    opacity:1;
+    transition:opacity .2s ease, max-height .2s ease;
+  }
+  .entry.hidden{display:none;}
+  .entry::before{
+    content:"";
+    position:absolute;
+    left:-5px;top:4px;
+    width:9px;height:9px;border-radius:50%;
+    background:var(--bg);
+    border:2px solid var(--teal);
+  }
+  .entry-meta{
+    font-family:var(--mono);font-size:11px;color:var(--ink-dim);
+    display:flex;gap:10px;align-items:center;margin-bottom:6px;
+  }
+  .tag{
+    padding:2px 8px;border-radius:5px;
+    border:1px solid var(--line);
+    text-transform:uppercase;letter-spacing:.04em;
+    font-size:10px;
+  }
+  .tag.money{color:var(--teal);border-color:rgba(45,212,191,.4);}
+  .tag.health{color:var(--amber);border-color:rgba(242,166,90,.4);}
+  .tag.career{color:#B4BFFF;border-color:rgba(180,191,255,.45);}
+  .tag.start{color:#FFB3C6;border-color:rgba(255,179,198,.45);}
+
+  a.card{
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    background:var(--bg-raised);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:16px 18px;
+    transition:.15s ease;
+  }
+  a.card:hover{
+    border-color:var(--teal);
+    transform:translateX(2px);
+  }
+  .card-title{
+    font-weight:600;font-size:0.97rem;color:var(--ink);
+    margin-bottom:4px;
+  }
+  .card-sub{font-size:0.85rem;color:var(--ink-dim);}
+  .card-arrow{
+    font-family:var(--mono);font-size:12px;color:var(--teal);
+    margin-top:8px;display:inline-block;
+  }
+
+  /* CHECKLIST PREVIEW */
+  .checklist-box{
+    background:var(--bg-raised);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:18px;
+    margin-top:8px;
+  }
+  .checklist-box li{
+    list-style:none;
+    display:flex;gap:10px;align-items:flex-start;
+    font-size:0.88rem;color:var(--ink-dim);
+    margin-bottom:9px;
+  }
+  .checklist-box li::before{
+    content:"›";color:var(--teal);font-family:var(--mono);font-weight:700;
+  }
+  .checklist-box ul{margin:0;padding:0;}
+
+  footer{
+    margin-top:50px;
+    padding-top:20px;
+    border-top:1px solid var(--line);
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--ink-dim);
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  }
+  footer a{color:var(--teal);text-decoration:none;}
+
+  @media (max-width:420px){
+    .status{flex-direction:column;}
+    .status div{border-right:none;border-bottom:1px solid var(--line);}
+    .status div:last-child{border-bottom:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="term-bar">
+      <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      &nbsp;~/thepracticalpal/links
+    </div>
+    <div class="avatar-row">
+      <div class="avatar">TP</div>
+      <div>
+        <h1>The Practical Pal</h1>
+        <p class="handle">@thepracticalpal · Bengaluru</p>
+      </div>
+    </div>
+    <p class="tagline">
+      <strong>I debug code for a living, I debug my portfolio with the same discipline.</strong>
+      Mutual funds, SIPs &amp; long-term wealth — plus the health and life stuff that actually matters.
+    </p>
+
+    <div class="status">
+      <div><span class="k">role</span><span class="v">IT engineer, Bengaluru</span></div>
+      <div><span class="k">focus</span><span class="v on">money · health · career</span></div>
+      <div><span class="k">style</span><span class="v">no hot tips, just systems</span></div>
+    </div>
+  </header>
+
+  <nav class="filters" id="filters">
+    <button class="chip active" data-filter="all">All</button>
+    <button class="chip" data-filter="start">Start Here</button>
+    <button class="chip" data-filter="money">Money</button>
+    <button class="chip" data-filter="health">Health</button>
+    <button class="chip" data-filter="career">Career</button>
+  </nav>
+
+  <div class="log" id="log">
+
+    <div class="entry" data-cat="start">
+      <div class="entry-meta"><span class="tag start">start here</span><span>pinned</span></div>
+      <a class="card" href="https://x.com/thepracticalpal/status/2068580332195172728?s=20" target="_blank">
+        <div class="card-title">The 1-page checklist for your first salary</div>
+        <div class="card-sub">The thread I wish someone gave me on day one of earning.</div>
+        <span class="card-arrow">read the thread →</span>
+      </a>
+      <div class="checklist-box">
+        <ul>
+          <li>Build a 6-month emergency shield before anything else</li>
+          <li>Term + health insurance, independent of your employer cover</li>
+          <li>Automate SIPs the day salary lands</li>
+          <li>Start boring: index fund or flexi cap, consistency over picking</li>
+          <li>Reinvest a fixed % into skills — your real leverage</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="money">
+      <div class="entry-meta"><span class="tag money">money</span><span>thread</span></div>
+      <a class="card" href="https://x.com/thepracticalpal/status/1990061997661302891?s=20" target="_blank">
+        <div class="card-title">My financial journey</div>
+        <div class="card-sub">How a decade in IT shaped how I think about money — mistakes included.</div>
+        <span class="card-arrow">read the thread →</span>
+      </a>
+    </div>
+
+    <div class="entry" data-cat="money">
+      <div class="entry-meta"><span class="tag money">money</span><span>essay</span></div>
+      <a class="card" href="https://x.com/thepracticalpal/status/1999754302420930695?s=20" target="_blank">
+        <div class="card-title">The 7-year experiment: renting + SIPs vs. buying a flat</div>
+        <div class="card-sub">Running the actual numbers instead of the usual rent-vs-buy debate.</div>
+        <span class="card-arrow">read the thread →</span>
+      </a>
+    </div>
+
+    <div class="entry" data-cat="career">
+      <div class="entry-meta"><span class="tag career">career</span><span>coming soon</span></div>
+      <a class="card" href="https://x.com/thepracticalpal" target="_blank">
+        <div class="card-title">More threads in progress</div>
+        <div class="card-sub">Career capital, upskilling, and the IT-to-investor playbook — dropping soon.</div>
+        <span class="card-arrow">follow for updates →</span>
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>updated quarterly, like a good portfolio review</span>
+    <a href="https://x.com/thepracticalpal" target="_blank">follow @thepracticalpal →</a>
+  </footer>
+
+</div>
+
+<script>
+  const chips = document.querySelectorAll('.chip');
+  const entries = document.querySelectorAll('.entry');
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const f = chip.dataset.filter;
+      entries.forEach(e => {
+        e.classList.toggle('hidden', f !== 'all' && e.dataset.cat !== f);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
