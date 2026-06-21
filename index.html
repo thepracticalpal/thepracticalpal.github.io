@@ -1,1 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Practical Pal | Links & Resources</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --card-bg: #ffffff;
+            --accent-color: #007bff;
+            --border-color: #e9ecef;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        .profile-header p {
+            color: #6c757d;
+            font-size: 1rem;
+            margin-top: 0;
+        }
+        .section-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        h2 {
+            font-size: 1.3rem;
+            margin-top: 0;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px;
+            color: #111;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .checklist-item input[type="checkbox"] {
+            margin-right: 12px;
+            margin-top: 5px;
+            transform: scale(1.1);
+        }
+        .link-button {
+            display: block;
+            text-align: center;
+            background: var(--card-bg);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 14px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .link-button:hover {
+            background: var(--accent-color);
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
 
+<div class="container">
+
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <h1>The Practical Pal</h1>
+        <p>IT Professional | Mutual Funds & Investing | Long-term Frameworks</p>
+    </div>
+
+    <!-- Who Am I Section -->
+    <div class="section-card">
+        <h2>📌 Who Am I?</h2>
+        <p>I’m Shashi, an IT engineer based out of Bengaluru. I’ve spent over a decade navigating the tech space while tracking markets, optimizing asset allocations, and building sustainable investing systems on the side. No overnight miracles here—just structured, data-driven frameworks for career growth, health, and personal wealth.</p>
+    </div>
+
+    <!-- The Financial Checklist Section -->
+    <div class="section-card">
+        <h2>📋 The "First Salary" Checklist</h2>
+        <p style="font-size: 0.9rem; color: #6c757d; margin-top: -10px; margin-bottom: 20px;">If you just started your earning journey, build your ironclad baseline before looking at complex instruments:</p>
+        
+        <div class="checklist-item">
+            <input type="checkbox" id="item1">
+            <label for="item1"><strong>The 6-Month Shield:</strong> Build a liquid fund covering 6 months of absolute bare-minimum survival expenses. Keep it away from your main checking account.</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="item2">
+            <label for="item2"><strong>Pure Risk Protection:</strong> Secure a personal Term Insurance policy (15-20x your annual package) and an independent Health Insurance policy. Don't blindly depend on your corporate policy.</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="item3">
+            <label for="item3"><strong>Automate Your Discipline:</strong> Set up your investment SIPs for the day immediately following your salary credit. Out of sight, out of mind.</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="item4">
+            <label for="item4"><strong>Embrace Boring Assets:</strong> Begin with a low-cost Nifty 50 Index fund or a well-regarded Flexi Cap fund. Build the consistency muscle before picking individual stocks.</label>
+        </div>
+        <div class="checklist-item">
+            <input type="checkbox" id="item5">
+            <label for="item5"><strong>The Career Upskilling Tax:</strong> Reinvest a small, fixed percentage of your paycheck directly into certifications, books, or technical skills. Your core professional skills are your primary leverage.</label>
+        </div>
+    </div>
+
+    <!-- Primary Links Section -->
+    <div class="section-card">
+        <h2>🔗 Quick Links & Resources</h2>
+        <a href="https://x.com/thepracticalpal" class="link-button" target="_blank">Follow My Daily Deep Dives on X</a>
+        <a href="#" class="link-button">My Core Mutual Fund Strategy (PDF)</a>
+        <a href="#" class="link-button">Tech & Systems Architecture Notes</a>
+    </div>
+
+</div>
+
+</body>
+</html>
